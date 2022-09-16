@@ -15,4 +15,7 @@ python manage.py migrate
 3. To run the server:
 python manage.py runserver
 
+4. App is to create and group users based on choice of creation.
+ex: student or teacher
+
 
