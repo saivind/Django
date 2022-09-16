@@ -1,0 +1,105 @@
+<style>
+  body {font-family: Arial, Helvetica, sans-serif;}
+  * {box-sizing: content-box;}
+  
+  /* Full-width input fields */
+  input[type=text], input[type=password], input[type=First_name], input[type=Last_name]{
+    width: 50%;
+    padding: 10px;
+    margin: 5px 10px 10px 22px;
+    display: inline-block;
+    border: none;
+    background: rgb(231, 240, 249);
+  }
+
+  input[type=email]{
+    width: 50%;
+    padding: 10px;
+    margin: 5px 0px 10px 0px;
+    display: inline-block;
+    border: none;
+    background: rgb(231, 240, 249);
+  }
+  
+  /* Add a background color when the inputs get focus */
+  input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=First_name]:focus, input[type=Last_name]:focus {
+    background-color: rgb(231, 240, 249);
+    outline: none;
+  }
+  
+  
+  
+ 
+  
+  /* Add padding to container elements */
+  .container {
+    padding: 25px;
+  }
+  
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #474e5d;
+    padding-top: 50px;
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* Style the horizontal ruler */
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+  
+  /* Clear floats */
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  .clearfix::before {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+</style>
+{% extends "users/index.html" %}
+
+<body>
+  
+{% block content %}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-left: 100px;">
+  <h1 class="h3 mb-0 text-gray-800">Add a User</h1>
+  <br>
+</div>
+<form name= "CreateUserForm" method="post" class="bootstrap5" style="margin-left: 5%" action="{% url 'users:signup' %}">
+    {% csrf_token %}
+    
+     
+        
+    {{ form.as_p }}
+    {{ form.errors }}
+    {% for message in messages %}
+        <p id="messages">{{message}}</p>
+    {% endfor %}
+    
+    <button type="submit" name="submit" style="margin-left: 400px; height:40px; width:auto; font-size:16px; border-radius: 10px;" text-align="center;" padding="35px 52px;" class="btn btn-outline-secondary btn-sm">Create User</button>
+</form>
+
+{% endblock %}
