@@ -131,14 +131,13 @@ def LogInView(request):
     
     return render(request, 'users/login.html', {'form': form}) # changed from login to index
 
+# Logout User
 @login_required
 def LogOutUser(request):
     logout(request) #redirect to success page
     return render(request, 'home.html')
 
-# def RemoveUser(request):
-#     if request.method == 'POST':
-
+#List of Users
 @login_required
 @group_required('superuser','manager')
 def ListUsers(request):
@@ -156,6 +155,7 @@ def ListUsers(request):
                 'pages':page_object,}
     return render(request,"users/listuser.html",context)
 
+# Delete User
 @login_required    
 @group_required('superuser','manager')
 def delete(request):
@@ -197,6 +197,7 @@ def delete(request):
                     'pages':page_object,}
         return render(request,"users/delete.html",context)
 
+    
 @login_required
 def dashboard(request):
     files = Uploads.objects.count()
