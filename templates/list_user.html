@@ -1,0 +1,102 @@
+
+
+{% extends "users/index.html" %}
+<body>
+  
+{% block content %}
+
+<div class="container-fluid">  
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"> Listed Users </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">       
+          <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <div class="dataTables_length" id="dataTable_length">
+                  <label>Show 
+                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select> 
+                  entries</label>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <div id="dataTable_filter" class="dataTables_filter">
+                  <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable"></label>
+                </div>
+              </div>
+            </div>
+          
+            <table class="table table-bordered table-hover" id="tabledata" width="100%" cellspacing="0">
+            
+              <thead class="table-primary">
+                <tr role="row">
+                  <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="User Email: activate to sort column descending" style="width: 74px;">User Email</th>
+                  <th>Username</th>
+                  <th>Superuser</th>
+                  <th>Engineer</th>
+                  <th>Manager</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for user in users %}  
+                  <tr>
+                    <td>{{user.email}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.is_superuser}}</td>
+                    <td>{{user.is_engineer}}</td>
+                    <td>{{user.is_manager}}</td>
+                    <td><a href="listuser/{{ user.email }} " id="demo">delete</a></td>
+                  </tr>
+                  {% endfor %} 
+              </tbody>
+          
+            </table>	
+
+            <script>
+              document.getElementById("demo").addEventListener("click", myFunction)
+              function myFunction() {
+                alert("{{ user.email }} removed from the users!")
+              }
+            </script>
+
+              {% if pages.has_other_pages %}
+              <nav aria-label="...">
+                <ul class="pagination pagination-sm">
+                  {% if pages.has_previous %}
+                    <li><a href="?page={{ pages.previous_page_number }}" class="page-link">&laquo;</a></li>
+                  {% else %}
+                    <li class="disabled" ><span class="page-link">&laquo;</span></li>
+                  {% endif %}
+                  {% for i in pages.paginator.page_range %}
+                    {% if pages.number == i %}
+                      <li class="active" ><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                      <li><a href="?page={{ i }}"  class="page-link">{{ i }}</a></li>
+                    {% endif %}
+                  {% endfor %}
+                  {% if users.has_next %}
+                    <li><a href="?page={{ pages.next_page_number }}" class="page-link">&raquo;</a></li>
+                  {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                  {% endif %}
+                </ul>
+              </nav>
+              {% endif %}
+    </div>
+        </div>
+  </div>
+</div>
+</div>
+    
+    
+
+</body>
+{% endblock %}
